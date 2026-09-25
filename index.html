@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <meta name="description"
+        content="تیر خلاص؛ بازی هدف‌گیری سه بعدی توسط NIKAN STUDIO">
+
+    <meta name="keywords"
+        content="تیر خلاص, بازی هدف گیری, بازی آنلاین, NIKAN STUDIO">
+
+    <meta name="author"
+        content="NIKAN STUDIO">
+
+    <meta name="theme-color"
+        content="#061d25">
+
+    <title>تیر خلاص | NIKAN STUDIO</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         INTRO
+    ========================== -->
+
+    <section id="intro" class="intro">
+
+        <div class="intro-content">
+
+            <h1>تیر خلاص</h1>
+
+            <div class="intro-line"></div>
+
+            <p>NIKAN STUDIO</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         GAME
+    ========================== -->
+
+    <main id="game" class="game hidden">
+
+        <!-- اطلاعات بازی -->
+
+        <header class="hud">
+
+            <div class="game-name">
+                تیر خلاص
+            </div>
+
+            <div class="score">
+                امتیاز:
+                <strong id="score">0</strong>
+            </div>
+
+        </header>
+
+
+        <!-- =====================
+             WORLD
+        ====================== -->
+
+        <section
+            id="world"
+            class="world">
+
+            <div
+                id="scene"
+                class="scene">
+
+
+                <!-- دیوار روبه‌رو -->
+
+                <div class="back-wall">
+
+                    <div class="brand">
+                        NIKAN STUDIO
+                    </div>
+
+
+                    <!-- هدف -->
+
+                    <button
+                        id="target"
+                        class="target"
+                        type="button"
+                        aria-label="هدف">
+
+                        <span class="target-red"></span>
+
+                        <span class="target-white"></span>
+
+                        <span class="target-black"></span>
+
+                        <span class="target-red-small"></span>
+
+                        <span class="target-center"></span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- دیوار چپ -->
+
+                <div class="wall side-left"></div>
+
+
+                <!-- دیوار راست -->
+
+                <div class="wall side-right"></div>
+
+
+                <!-- کف -->
+
+                <div class="floor">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================
+                 CROSSHAIR
+            ================== -->
+
+            <div
+                id="crosshair"
+                class="crosshair">
+
+                <span class="horizontal"></span>
+                <span class="vertical"></span>
+
+            </div>
+
+
+            <!-- =================
+                 AIM INFO
+            ================== -->
+
+            <div
+                id="message"
+                class="message">
+
+                هدف را نشانه بگیر!
+
+            </div>
+
+
+            <!-- =================
+                 FIRE BUTTON
+            ================== -->
+
+            <button
+                id="fireButton"
+                class="fire-button"
+                type="button">
+
+                🎯
+
+            </button>
+
+
+            <!-- =================
+                 SHOOT LINE
+            ================== -->
+
+            <div
+                id="shot"
+                class="shot">
+            </div>
+
+
+            <!-- =================
+                 TOUCH HINT
+            ================== -->
+
+            <div
+                id="hint"
+                class="hint">
+
+                صفحه را به چپ و راست بکش
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================
+             BOTTOM
+        ====================== -->
+
+        <footer class="bottom">
+
+            <button
+                id="restartButton"
+                type="button">
+
+                شروع دوباره
+
+            </button>
+
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
