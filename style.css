@@ -1,0 +1,893 @@
+/* =========================================================
+   TIR KHOLAS
+   NIKAN STUDIO
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    overflow: hidden;
+
+    background: #031920;
+
+    color: white;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #126a7e 0%,
+            #074657 50%,
+            #021b23 100%
+        );
+
+    animation:
+        introOut
+        .6s
+        ease
+        1.4s
+        forwards;
+}
+
+.intro-content {
+    text-align: center;
+
+    animation:
+        introIn
+        .7s
+        ease;
+}
+
+.intro h1 {
+    font-size:
+        clamp(
+            42px,
+            12vw,
+            75px
+        );
+
+    font-weight: 900;
+
+    text-shadow:
+        0 5px 15px
+        rgba(0,0,0,.45);
+}
+
+.intro-line {
+    width: 90px;
+    height: 4px;
+
+    margin: 18px auto;
+
+    border-radius: 20px;
+
+    background: white;
+}
+
+.intro p {
+    direction: ltr;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+}
+
+@keyframes introIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(.8);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+}
+
+@keyframes introOut {
+
+    to {
+        opacity: 0;
+
+        visibility: hidden;
+    }
+}
+
+
+/* =========================================================
+   GAME
+========================================================= */
+
+.game {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #031920;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+/* =========================================================
+   HUD
+========================================================= */
+
+.hud {
+    height: 65px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        10px
+        18px;
+
+    background:
+        rgba(0,0,0,.48);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+    z-index: 500;
+}
+
+.game-name {
+    font-size: 22px;
+
+    font-weight: 900;
+}
+
+.score {
+    padding:
+        8px
+        14px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    font-size: 15px;
+}
+
+.score strong {
+    color: #facc15;
+
+    font-size: 21px;
+
+    margin-right: 4px;
+}
+
+
+/* =========================================================
+   WORLD
+========================================================= */
+
+.world {
+    position: relative;
+
+    flex: 1;
+
+    overflow: hidden;
+
+    perspective: 900px;
+
+    touch-action: none;
+
+    background:
+        linear-gradient(
+            #0b5d70,
+            #062f3b
+        );
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.scene {
+    position: absolute;
+
+    inset: 0;
+
+    transform-style:
+        preserve-3d;
+
+    transition:
+        transform .08s linear;
+}
+
+
+/* =========================================================
+   BACK WALL
+========================================================= */
+
+.back-wall {
+    position: absolute;
+
+    width: 78%;
+    height: 72%;
+
+    left: 11%;
+    top: 6%;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #17758a,
+            #0b5668
+        );
+
+    box-shadow:
+        0 25px 45px
+        rgba(0,0,0,.4);
+
+    transform:
+        translateZ(-100px);
+
+    overflow: hidden;
+}
+
+
+/* نور روی دیوار */
+
+.back-wall::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            125deg,
+            rgba(255,255,255,.12),
+            transparent 40%,
+            rgba(0,0,0,.12)
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SIDE WALLS
+========================================================= */
+
+.wall {
+    position: absolute;
+
+    top: 6%;
+
+    width: 25%;
+    height: 72%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #031d25,
+            #0a4d5e
+        );
+}
+
+.side-left {
+    left: -5%;
+
+    transform:
+        perspective(700px)
+        rotateY(62deg);
+
+    transform-origin:
+        right center;
+}
+
+.side-right {
+    right: -5%;
+
+    transform:
+        perspective(700px)
+        rotateY(-62deg);
+
+    transform-origin:
+        left center;
+}
+
+
+/* =========================================================
+   FLOOR
+========================================================= */
+
+.floor {
+    position: absolute;
+
+    left: -20%;
+    right: -20%;
+
+    bottom: -8%;
+
+    height: 35%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #073d4b,
+            #021a21
+        );
+
+    transform:
+        perspective(600px)
+        rotateX(58deg);
+
+    transform-origin:
+        top center;
+
+    overflow: hidden;
+}
+
+.floor span {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    height: 2px;
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+.floor span:nth-child(1) {
+    top: 20%;
+}
+
+.floor span:nth-child(2) {
+    top: 40%;
+}
+
+.floor span:nth-child(3) {
+    top: 60%;
+}
+
+.floor span:nth-child(4) {
+    top: 80%;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+    position: absolute;
+
+    top: 28px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    direction: ltr;
+
+    white-space: nowrap;
+
+    font-size:
+        clamp(
+            16px,
+            5vw,
+            28px
+        );
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    color:
+        rgba(255,255,255,.92);
+
+    text-shadow:
+        0 4px 8px
+        rgba(0,0,0,.4);
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   TARGET
+========================================================= */
+
+.target {
+    position: absolute;
+
+    width:
+        clamp(
+            105px,
+            27vw,
+            155px
+        );
+
+    height:
+        clamp(
+            105px,
+            27vw,
+            155px
+        );
+
+    left: 50%;
+    top: 52%;
+
+    transform:
+        translate(-50%,-50%);
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f8fafc;
+
+    box-shadow:
+        0 13px 0
+        rgba(0,0,0,.18),
+
+        0 25px 35px
+        rgba(0,0,0,.35);
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+/* حلقه قرمز بیرونی */
+
+.target-red {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 50%;
+
+    border:
+        7px solid
+        #ef4444;
+}
+
+
+/* حلقه سفید */
+
+.target-white {
+    position: absolute;
+
+    width: 72%;
+    height: 72%;
+
+    left: 14%;
+    top: 14%;
+
+    border-radius: 50%;
+
+    border:
+        6px solid
+        #ffffff;
+}
+
+
+/* حلقه مشکی */
+
+.target-black {
+    position: absolute;
+
+    width: 48%;
+    height: 48%;
+
+    left: 26%;
+    top: 26%;
+
+    border-radius: 50%;
+
+    border:
+        6px solid
+        #20252b;
+}
+
+
+/* حلقه قرمز داخلی */
+
+.target-red-small {
+    position: absolute;
+
+    width: 29%;
+    height: 29%;
+
+    left: 35.5%;
+    top: 35.5%;
+
+    border-radius: 50%;
+
+    border:
+        5px solid
+        #ef4444;
+}
+
+
+/* مرکز */
+
+.target-center {
+    position: absolute;
+
+    width: 15%;
+    height: 15%;
+
+    left: 42.5%;
+    top: 42.5%;
+
+    border-radius: 50%;
+
+    background: #20252b;
+}
+
+
+/* =========================================================
+   CROSSHAIR
+========================================================= */
+
+.crosshair {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 45px;
+    height: 45px;
+
+    transform:
+        translate(-50%,-50%);
+
+    z-index: 300;
+
+    pointer-events: none;
+}
+
+
+/* علامت + */
+
+.crosshair .horizontal {
+    position: absolute;
+
+    width: 45px;
+    height: 4px;
+
+    left: 0;
+    top: 20px;
+
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 2px 5px
+        rgba(0,0,0,.7);
+}
+
+.crosshair .vertical {
+    position: absolute;
+
+    width: 4px;
+    height: 45px;
+
+    left: 20px;
+    top: 0;
+
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 2px 5px
+        rgba(0,0,0,.7);
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 145px;
+
+    transform:
+        translateX(-50%);
+
+    padding:
+        9px
+        17px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(0,0,0,.45);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    z-index: 400;
+}
+
+
+/* =========================================================
+   FIRE BUTTON
+========================================================= */
+
+.fire-button {
+    position: absolute;
+
+    right: 22px;
+    bottom: 24px;
+
+    width: 78px;
+    height: 78px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        #ffffff;
+
+    color: #07566b;
+
+    font-size: 31px;
+
+    box-shadow:
+        0 7px 20px
+        rgba(0,0,0,.4);
+
+    z-index: 500;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+.fire-button:active {
+    transform: scale(.88);
+}
+
+
+/* =========================================================
+   SHOT
+========================================================= */
+
+.shot {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 80px;
+
+    width: 5px;
+    height: 0;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        #20252b;
+
+    border-radius: 10px;
+
+    z-index: 250;
+
+    pointer-events: none;
+}
+
+.shot.active {
+    height: 55%;
+
+    transition:
+        height .16s ease;
+}
+
+
+/* =========================================================
+   HINT
+========================================================= */
+
+.hint {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 22px;
+
+    transform:
+        translateX(-50%);
+
+    padding:
+        7px
+        13px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(0,0,0,.28);
+
+    font-size: 11px;
+
+    color:
+        rgba(255,255,255,.75);
+
+    z-index: 200;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.bottom {
+    height: 60px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #031a21;
+
+    z-index: 500;
+}
+
+#restartButton {
+    border: none;
+
+    padding:
+        8px
+        24px;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #07566b;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+#restartButton:active {
+    transform: scale(.94);
+}
+
+
+/* =========================================================
+   HIT
+========================================================= */
+
+.target.hit {
+    animation:
+        targetHit
+        .25s
+        ease;
+}
+
+@keyframes targetHit {
+
+    50% {
+        transform:
+            translate(-50%,-50%)
+            scale(1.18);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .hud {
+        height: 62px;
+    }
+
+    .game-name {
+        font-size: 20px;
+    }
+
+    .score {
+        font-size: 14px;
+    }
+
+    .fire-button {
+        width: 70px;
+        height: 70px;
+
+        right: 18px;
+        bottom: 20px;
+    }
+
+    .message {
+        bottom: 130px;
+    }
+
+    .hint {
+        bottom: 18px;
+    }
+  }
